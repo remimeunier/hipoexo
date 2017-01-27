@@ -25,9 +25,9 @@
 </div>  
 
 <div class="row">
-  <div class=" large-8 columns">
+  <div class=" large-9 columns">
   	{% if text %}
-			<h1> {{text}}</h1>
+			<h2> {{text}}</h2>
 		{% endif %}
 
 		{% if results %}
@@ -46,15 +46,20 @@
 
     </tr>    
     {% endfor %}
+    <tr>
+    	{% for x in xrange(1, total_page) %}
+    	{{ x }}
+    	{% endfor %}
+    </tr>
   </table>
 {% endif %}
   </div>
-  <div class=" large-4  columns" >
+  <div class=" large-3  columns" >
   {% if latest_search %}
-  	<h1>Previous Search</h1>
+  	<h2>Previous Search</h2>
     <ul>
     {% for search in latest_search %}
-        <li><a href="{% url 'polls:detail' search.id %}"> {{ search }}</a></li>
+        <li><a href="{% url 'polls:detail' search_id=search.id page=1 %}"> {{ search }}</a></li>
     {% endfor %}
     </ul>
 	{% else %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from polls.models import SearchLog
+import math
 
 def index(request):
     latest_search = SearchLog.was_published_recently()
@@ -21,14 +22,16 @@ def search(request):
     	text = "Sry, '" + location + "' not recognized"
     else:
     	text = "Your search for " + key_words + " in " + location 
+    total_page = math.ceil(results.__len__()/5.0)
     context = {
-    						'results': results,
+    						'results': results[:5],
     						'latest_search': latest_search,
-    						'text': text
+    						'text': text,
+    						'total_page': total_page
     					}
     return render(request, 'polls/index.html', context)
 
-def detail(request, search_id):
+def detail(request, search_id, page):
     latest_search = SearchLog.was_published_recently()
     log = SearchLog.objects.get(id=search_id)
     results = log.search()
@@ -36,10 +39,13 @@ def detail(request, search_id):
     	text = "Sry, '" + log.location_text + "'' not recognized"
     else:
     	text = "Your search for " + log.key_words_text + " in " + log.location_text 
+    total_page = math.ceil(results.__len__()/5.0)
     context = {
-    						'results': results,
+    						'results': results[:5],
     						'latest_search': latest_search,
-    						'text': text
+    						'text': text,
+    						'page': page,
+    						'total_page': total_page
     					}
     return render(request, 'polls/index.html', context)
 
