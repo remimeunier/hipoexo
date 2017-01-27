@@ -1,23 +1,42 @@
-<form action="{% url 'polls:search' %}" method="post">
-{% csrf_token %}
+{% load static %}
 
-    <input type="text" name="key_words" id="key_words"/>
-    <input type="text" name="location" id="location"/>
+<link rel="stylesheet" type="text/css" href="{% static 'polls/foundation.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'polls/styles.css' %}" />
 
-<input type="submit" value="Search" />
-</form>
+<div class="row">
+  <div class=" large-8 large-centered columns" style="text-align: center">
+  	<h1> The ultimate Foulsquare Client</h1>
+  </div>
+</div>  
 
-{% if text %}
-<p> {{text}}</p>
-{% endif %}
+<div class="row">
+  <div class=" large-8 large-centered columns" style="text-align: center">
 
-{% if results %}
+		<form action="{% url 'polls:search' %}" method="post">
+		{% csrf_token %}
+
+		    <input placeholder="I am looking for..." type="text" name="key_words" id="key_words"/>
+		    <input placeholder="Location" type="text" name="location" id="location"/>
+
+		<input id="button" type="submit" value="Search" />
+		</form>
+
+  </div>
+</div>  
+
+<div class="row">
+  <div class=" large-8 columns">
+  	{% if text %}
+			<h1> {{text}}</h1>
+		{% endif %}
+
+		{% if results %}
 
   <table>
    <tr>
-       <td>Name</td>
-       <td>Phone Number</td>
-       <td>Chekin Count</td>
+       <th>Name</th>
+       <th>Phone Number</th>
+       <th>Chekin Count</th>
    </tr>
     {% for result in results %}
     <tr>
@@ -28,17 +47,25 @@
     </tr>    
     {% endfor %}
   </table>
-{% else %}  
-Please Make a searrch
 {% endif %}
-
-
-{% if latest_search %}
+  </div>
+  <div class=" large-4  columns" >
+  {% if latest_search %}
+  	<h1>Previous Search</h1>
     <ul>
     {% for search in latest_search %}
         <li><a href="{% url 'polls:detail' search.id %}"> {{ search }}</a></li>
     {% endfor %}
     </ul>
-{% else %}
-    <p>No Search are available.</p>
-{% endif %}
+	{% else %}
+	    <p>No Search are available.</p>
+	{% endif %}
+	</div>
+
+</div>
+
+
+
+
+
+

@@ -23,7 +23,7 @@ class SearchLog(models.Model):
 	    		if 'formattedPhone' in item['contact']:
 	    			phone = item['contact']['formattedPhone']
 	    		else:
-	    			phone = 'No phone number provided'
+	    			phone = "We don't know"
 	    		mylist.append({'name': name, 'phone': phone, 'count':count})
     	except:
     		mylist=0

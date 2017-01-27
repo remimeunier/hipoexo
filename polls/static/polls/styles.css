@@ -1,0 +1,48 @@
+body {
+  font-family: "Lucida Console", Monaco, monospace;
+}
+
+td {
+	text-align: center;
+}
+table {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+table td, table th {
+  border: 1px solid black;
+  padding: 10px;
+}
+table tr:first-child th {
+  border-top: 0;
+}
+table tr:last-child td {
+  border-bottom: 0;
+}
+table tr td:first-child,
+table tr th:first-child {
+  border-left: 0;
+}
+table tr td:last-child,
+table tr th:last-child {
+  border-right: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+ul a {
+    color: black;
+    text-decoration: none;
+}
+input {
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 2px;
+	margin: 10px;
+	border-color: grey;
+}
+
+#button {
+	background: white;
+}
