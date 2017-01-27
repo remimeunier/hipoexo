@@ -1,0 +1,24 @@
+<form action="{% url 'polls:search' %}" method="post">
+{% csrf_token %}
+
+    <input type="text" name="key_words" id="key_words"/>
+    <input type="text" name="location" id="location"/>
+
+<input type="submit" value="Search" />
+</form>
+
+
+
+{% if text %}
+<p> {{text}}</p>
+{% endif %}
+
+{% if latest_search %}
+    <ul>
+    {% for search in latest_search %}
+        <li><a href="{% url 'polls:detail' search.id %}"> {{ search }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Search are available.</p>
+{% endif %}
