@@ -7,11 +7,31 @@
 <input type="submit" value="Search" />
 </form>
 
-
-
 {% if text %}
 <p> {{text}}</p>
 {% endif %}
+
+{% if results %}
+
+  <table>
+   <tr>
+       <td>Name</td>
+       <td>Phone Number</td>
+       <td>Chekin Count</td>
+   </tr>
+    {% for result in results %}
+    <tr>
+    	 <td>{{ result.name }}</td>
+       <td> {{ result.phone }}</td>
+       <td> {{ result.count }}</td>
+
+    </tr>    
+    {% endfor %}
+  </table>
+{% else %}  
+Please Make a searrch
+{% endif %}
+
 
 {% if latest_search %}
     <ul>

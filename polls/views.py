@@ -4,7 +4,10 @@ from polls.models import SearchLog
 
 def index(request):
     latest_search = SearchLog.was_published_recently()
-    context = {'latest_search': latest_search}
+    context = {
+    						'latest_search': latest_search,
+    						'results': None
+    					}
     return render(request, 'polls/index.html', context)
 
 def search(request):   
@@ -14,7 +17,9 @@ def search(request):
     log = SearchLog(key_words_text=key_words, location_text=location)
     log.save()
     latest_search = SearchLog.was_published_recently()
+    results = log.search()
     context = {
+    						'results': results,
     						'latest_search': latest_search,
     						'text': text
     					}
@@ -24,7 +29,9 @@ def detail(request, search_id):
     latest_search = SearchLog.was_published_recently()
     log = SearchLog.objects.get(id=search_id)
     text = "You search for " + log.key_words_text + " in " + log.location_text
+    results = log.search()
     context = {
+    						'results': results,
     						'latest_search': latest_search,
     						'text': text
     					}
