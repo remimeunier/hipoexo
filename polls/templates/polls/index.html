@@ -47,9 +47,16 @@
     </tr>    
     {% endfor %}
     <tr>
-    	{% for x in xrange(1, total_page) %}
-    	{{ x }}
+    	<td colspan="3">
+    	{% for x in range_total_page %}
+    		{% if x == page %}
+    			{{ x }} -
+    		{% else %}
+    			<a href="{% url 'polls:detail' search_id=id page=x %}"> {{ x }}</a> - 
+    		{% endif %}
     	{% endfor %}
+    	Current page : {{page}} out of {{total_page}}
+   	 </td>	
     </tr>
   </table>
 {% endif %}

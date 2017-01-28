@@ -22,11 +22,14 @@ def search(request):
     	text = "Sry, '" + location + "' not recognized"
     else:
     	text = "Your search for " + key_words + " in " + location 
-    total_page = math.ceil(results.__len__()/5.0)
-    context = {
-    						'results': results[:5],
+    total_page = math.ceil(results.__len__()/6.0)
+    context = {	
+    						'id': log.id,
+    						'results': results[:6],
     						'latest_search': latest_search,
     						'text': text,
+    						'range_total_page': range(1, total_page + 1),
+    						'page': 1,
     						'total_page': total_page
     					}
     return render(request, 'polls/index.html', context)
@@ -39,12 +42,15 @@ def detail(request, search_id, page):
     	text = "Sry, '" + log.location_text + "'' not recognized"
     else:
     	text = "Your search for " + log.key_words_text + " in " + log.location_text 
-    total_page = math.ceil(results.__len__()/5.0)
+    total_page = math.ceil(results.__len__()/6.0)
+    cut = ((int(page)-1) * 6) 
     context = {
-    						'results': results[:5],
+    						'id': log.id,
+    						'results': results[cut:cut+6],
     						'latest_search': latest_search,
     						'text': text,
-    						'page': page,
+    						'page': int(page),
+    						'range_total_page': range(1, total_page +1),
     						'total_page': total_page
     					}
     return render(request, 'polls/index.html', context)
